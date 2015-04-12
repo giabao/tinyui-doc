@@ -6,3 +6,5 @@ bower_components
 /dist
 /src/**/*.js
 /src/**/*.js.map
+/cache
+/nwdist
