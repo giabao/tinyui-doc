@@ -32,7 +32,7 @@
   "scripts": {
     "preinstall": "export HOME=$OPENSHIFT_DATA_DIR",
     "start": "node server.js",
-    "postinstall": "export HOME=$OPENSHIFT_DATA_DIR && node ./node_modules/jspm/jspm.js config registries.github.auth $JSPM_GITHUB_AUTH_TOKEN && node ./node_modules/jspm/jspm.js install -y && node ./node_modules/gulp/bin/gulp.js build"
+    "postinstall": "export HOME=$OPENSHIFT_DATA_DIR && node ./node_modules/jspm/jspm.js config registries.github.auth $JSPM_GITHUB_AUTH_TOKEN && node ./node_modules/jspm/jspm.js install -y && node ./node_modules/gulp/bin/gulp.js build && rm -Rf node_modules"
   },
   "main": "server.js",
   "dependencies": {
