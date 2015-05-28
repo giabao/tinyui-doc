@@ -1,12 +1,12 @@
 <template>
   <section>
-    <button click.trigger="prev()"
-            disabled.bind="curIdx == 0">Prev</button>
-    <select change.trigger="changeEx()" value.bind="currentExIdx">
-      <option repeat.for="ex of examples" value.bind="$index">${ex}</option>
+    <button click.delegate="prev()"
+            disabled.bind="disablePrev">Prev</button>
+    <select change.delegate="changeEx()" value.bind="curEx">
+      <option repeat.for="ex of examples" value.bind="ex">${ex}</option>
     </select>
-    <button click.trigger="next()"
-            disabled.bind="curIdx == examples.length - 1">Next</button>
+    <button click.delegate="next()"
+            disabled.bind="disableNext">Next</button>
     <div class="row">
       <div class="col-md-5">
         <pre><code class="xml" id="ui-xml-code"></code></pre>

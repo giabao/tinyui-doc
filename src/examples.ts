@@ -13,11 +13,10 @@ export class Example {
     'view-item-local-var-name', 'item-field-node', 'function-node', 'new-expression', 'using-extension-method',
     'nested-items', 'for-loop', 'layout', 'tooltip', 'modes'];
 
-  //ex = {i: 5};
-  currentExIdx = '5';
+  curEx = 'view-item';
 
-  @computedFrom('currentExIdx')
-  get curIdx() { return parseInt(this.currentExIdx); }
+  @computedFrom('curEx')
+  get curIdx() { return this.examples.indexOf(this.curEx); }
 
   constructor(public http: HttpClient) { }
 
@@ -28,7 +27,7 @@ export class Example {
   private get xmlFileName(): string {
     var idx = this.curIdx + 1;
     var prefix = idx < 10? '0' : '';
-    return prefix + idx + '-' + this.examples[idx - 1];
+    return prefix + idx + '-' + this.curEx;
   }
 
   private get xmlUrl(): string {
@@ -56,13 +55,20 @@ export class Example {
   }
 
   next() {
-    this.currentExIdx = '' + (this.curIdx + 1);
-    //this.dirtyChecker.check();
+    this.curEx = this.examples[this.curIdx + 1];
+    this.changeEx();
   }
+
   prev() {
-    this.currentExIdx = '' + (this.curIdx - 1);
-    //this.dirtyChecker.check();
+    this.curEx = this.examples[this.curIdx - 1];
+    this.changeEx();
   }
+
+  @computedFrom('curEx')
+  get disableNext() { return this.curEx == this.examples[this.examples.length - 1]; }
+
+  @computedFrom('curEx')
+  get disablePrev() { return this.curEx == this.examples[0]; }
 }
 
 module util {
