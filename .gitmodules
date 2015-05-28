@@ -1,0 +1,3 @@
+[submodule "tinyui"]
+	path = tinyui
+	url = https://github.com/giabao/tinyui.git

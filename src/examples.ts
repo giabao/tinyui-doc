@@ -30,14 +30,16 @@ export class Example {
     return prefix + idx + '-' + this.curEx;
   }
 
+  private static exRoot = 'tinyui/example/';
+
   private get xmlUrl(): string {
-    return 'dist/exam/ui/' + this.xmlFileName + '.xml';
+    return Example.exRoot + 'ui/' + this.xmlFileName + '.xml';
   }
   private get srcUrl(): string {
-    return 'dist/exam/src/UI' + util.toCamel(this.xmlFileName) + '.hx';
+    return Example.exRoot + 'src/UI' + util.toCamel(this.xmlFileName) + '.hx';
   }
   private get srcGenUrl(): string {
-    return 'dist/exam/ui-codegen/UI' + util.toCamel(this.xmlFileName) + '.hx';
+    return Example.exRoot + 'ui-codegen/UI' + util.toCamel(this.xmlFileName) + '.hx';
   }
 
   private static onHttpRes(id: string) {
