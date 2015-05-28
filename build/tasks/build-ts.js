@@ -5,6 +5,7 @@ var plumber = require('gulp-plumber');
 var ts = require('gulp-typescript');
 var sourcemaps = require('gulp-sourcemaps');
 var paths = require('../paths');
+var mergeStream = require('merge-stream');
 
 var tsProject = ts.createProject({
   typescript: require('typescript'),
@@ -36,4 +37,18 @@ gulp.task('build-ts', function(callback) {
     ['build-system-ts', 'build-html'],
     callback
   );
+});
+
+gulp.task('tinyui', function() {
+  function cp(dir) {
+    return gulp.src('../example/' + dir + '/**')
+      .pipe(gulp.dest(paths.output + 'exam/' + dir));
+  }
+
+  var merged = mergeStream();
+  for(var dir of ['ui', 'src', 'ui-codegen']) {
+    merged.add(cp(dir));
+  }
+
+  return merged;
 });

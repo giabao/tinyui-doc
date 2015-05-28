@@ -9,10 +9,9 @@ import 'bootstrap/css/bootstrap.css!';
 export class App {
   constructor(public router: Router) {
     router.configure(config => {
-      config.title = 'Aurelia';
+      config.title = 'TinyUI';
       config.map([
-        { route: ['','mCO2giantiep'],  moduleId: './mCO2giantiep',      nav: true, title:'mCO2giantiep' },
-        { route: 'flickr',        moduleId: './flickr',       nav: true }
+        { route: ['','examples'],  moduleId: './examples',      nav: true, title:'examples' }
       ]);
     });
   }

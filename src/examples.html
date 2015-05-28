@@ -1,0 +1,20 @@
+<template>
+  <section>
+    <button click.trigger="prev()"
+            disabled.bind="curIdx == 0">Prev</button>
+    <select change.trigger="changeEx()" value.bind="currentExIdx">
+      <option repeat.for="ex of examples" value.bind="$index">${ex}</option>
+    </select>
+    <button click.trigger="next()"
+            disabled.bind="curIdx == examples.length - 1">Next</button>
+    <div class="row">
+      <div class="col-md-5">
+        <pre><code class="xml" id="ui-xml-code"></code></pre>
+        <pre><code class="haxe" id="ui-src-code"></code></pre>
+      </div>
+      <div class="col-md-5">
+        <pre><code class="haxe" id="ui-gen-code"></code></pre>
+      </div>
+    </div>
+  </section>
+</template>
