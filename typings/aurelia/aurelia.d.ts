@@ -313,7 +313,8 @@ declare module "aurelia-framework" {
 
   var bindable: PropertyDecorator; //@aurelia-templating
 
-  var computedFrom: MethodDecorator; //@aurelia-binding
+  //var computedFrom: MethodDecorator; //@aurelia-binding
+  function computedFrom(... args: Array<any>): any; //@aurelia-binding
 
 
   import Logging = require('aurelia-logging');
