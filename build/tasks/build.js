@@ -2,22 +2,29 @@ var gulp = require('gulp');
 var runSequence = require('run-sequence');
 var changed = require('gulp-changed');
 var plumber = require('gulp-plumber');
-var to5 = require('gulp-babel');
 var sourcemaps = require('gulp-sourcemaps');
 var paths = require('../paths');
-var compilerOptions = require('../babel-options');
 var assign = Object.assign || require('object.assign');
 
-// transpiles changed es6 files to SystemJS format
+var ts = require('gulp-typescript');
+
+var tsProject = ts.createProject({
+  typescript: require('typescript'),
+  module: 'commonjs',//'amd',
+  target: 'ES5',
+  noImplicitAny: false//true
+});
+
+// transpiles changed .ts files to SystemJS format (--module amd or --module commonjs)
 // the plumber() call prevents 'pipe breaking' caused
 // by errors from other gulp plugins
 // https://www.npmjs.com/package/gulp-plumber
 gulp.task('build-system', function () {
-  return gulp.src(paths.source)
+  return gulp.src(paths.tsSource)
     .pipe(plumber())
-    .pipe(changed(paths.output, {extension: '.js'}))
+    .pipe(changed(paths.output, {extension: '.ts'}))
     .pipe(sourcemaps.init())
-    .pipe(to5(assign({}, compilerOptions, {modules:'system'})))
+    .pipe(ts(tsProject))
     .pipe(sourcemaps.write({includeContent: false, sourceRoot: '/' + paths.root }))
     .pipe(gulp.dest(paths.output));
 });
