@@ -43,7 +43,7 @@ gulp.task('build-html', function () {
 gulp.task('build', function(callback) {
   return runSequence(
     'clean',
-    ['build-system', 'build-html'],
+    ['bundle', 'build-html'],
     callback
   );
 });
