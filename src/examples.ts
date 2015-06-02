@@ -7,11 +7,11 @@ import 'highlight.js/styles/default.css!';
 import {inject, computedFrom} from 'aurelia-framework';
 import {HttpClient, IHttpResponseMessage} from 'aurelia-http-client';
 
+import examplesData = require('example-data');
+
 @inject(HttpClient)
 export class Example {
-  examples = ['empty', 'field-attr', 'this-node', 'local-var', 'initUI-args', 'view-item', 'declare-var',
-    'view-item-local-var-name', 'item-field-node', 'function-node', 'new-expression', 'using-extension-method',
-    'nested-items', 'for-loop', 'layout', 'tooltip', 'modes'];
+  examples = examplesData;
 
   curEx = 'view-item';
 
@@ -32,6 +32,9 @@ export class Example {
 
   private static exRoot = 'tinyui/example/';
 
+  private static get defaultStyleUrl(): string {
+    return Example.exRoot + 'ui/styles.xml';
+  }
   private get xmlUrl(): string {
     return Example.exRoot + 'ui/' + this.xmlFileName + '.xml';
   }
@@ -42,18 +45,25 @@ export class Example {
     return Example.exRoot + 'ui-codegen/UI' + util.toCamel(this.xmlFileName) + '.hx';
   }
 
-  private static onHttpRes(id: string) {
-    return function(res: IHttpResponseMessage<string>) {
+  private onHttpRes(id: string) {
+    return (res: IHttpResponseMessage<string>) => {
       var block = document.getElementById(`ui-${id}-code`);
+      if(id === 'xml') {
+        if (res.response.indexOf('<class import=') !== -1) {
+          this.http.get(Example.defaultStyleUrl).then(this.onHttpRes('style'));
+        } else {
+          document.getElementById('ui-style-code').textContent = '';
+        }
+      }
       block.textContent  = res.response;
       hljs.highlightBlock(block);
     }
   }
 
   changeEx() {
-    this.http.get(this.xmlUrl).then(Example.onHttpRes('xml'));
-    this.http.get(this.srcUrl).then(Example.onHttpRes('src'));
-    this.http.get(this.srcGenUrl).then(Example.onHttpRes('gen'));
+    this.http.get(this.xmlUrl).then(this.onHttpRes('xml'));
+    this.http.get(this.srcUrl).then(this.onHttpRes('src'));
+    this.http.get(this.srcGenUrl).then(this.onHttpRes('gen'));
   }
 
   next() {

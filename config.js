@@ -384,6 +384,7 @@ System.config({
       "github:aurelia/bootstrapper@0.12.0",
       "nav-bar",
       "npm:highlight.js@8.6.0/styles/default.css!github:systemjs/plugin-css@0.1.11",
+      "example-data",
       "examples",
       "github:components/jquery@2.1.4/jquery",
       "github:twbs/bootstrap@3.3.4/css/bootstrap.css!github:systemjs/plugin-css@0.1.11",

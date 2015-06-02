@@ -19,7 +19,7 @@ var tsProject = ts.createProject({
 // the plumber() call prevents 'pipe breaking' caused
 // by errors from other gulp plugins
 // https://www.npmjs.com/package/gulp-plumber
-gulp.task('build-system', function () {
+gulp.task('build-system', ['tinyui'], function () {
   return gulp.src(paths.tsSource)
     .pipe(plumber())
     .pipe(changed(paths.output, {extension: '.ts'}))
