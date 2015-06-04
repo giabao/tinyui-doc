@@ -59,7 +59,6 @@
     "typescript": "^1.5.0-beta",
     "vinyl-paths": "^1.0.0",
     "yargs": "^3.9.1",
-
     "finalhandler": "^0.3.4",
     "serve-static": "^1.9.2"
   }
